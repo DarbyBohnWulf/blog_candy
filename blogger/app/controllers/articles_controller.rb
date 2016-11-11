@@ -12,9 +12,12 @@ class ArticlesController < ApplicationController
   end
 
   def create
+    @article = Article.new(article_params)
     if @article.save
-      redirect_to @article
+      flash.notice = "#{params[:title]} was published."
+      redirect_to article_path(@article)
     else
+      flash.notice = "#{params[:title]} couldn't be saved."
       render 'new'
     end
   end
@@ -25,16 +28,26 @@ class ArticlesController < ApplicationController
 
   def update
     if @article.save
+      flash.notice = "You updated '#{@article.title}'."
       redirect_to @article
     else
+      flash.notice = "There was a problem updating '#{@article.title}'."
       render 'edit'
     end
   end
 
-  def delete
-    @article.remove
+  def destroy
+    @article = Article.find(params[:id])
+    if @article.destroy
+      flash.notice = "#{@article.title} was deleted."
+      redirect_to articles_path
+    else
+      flash.notice = "#{@article.title} stayed in the db."
+    end
   end
 
   protected
-
+    def article_params
+      params.require(:article).permit(:title, :body)
+    end
 end

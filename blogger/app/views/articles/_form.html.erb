@@ -1,0 +1,23 @@
+<%= form_for @article do |a| %>
+  <% if @article.errors.any? %>
+  <ul class="list-group">
+    <% @uncanny.errors.full_messages.each do |e| %>
+      <li><%= e %></li>
+    <% end %>
+  </ul>
+  <% end %>
+
+  <div class="form-group">
+    <%= a.label(:title) %></br>
+    <%= a.text_field(:title, class: 'form-control') %>
+  </div>
+
+  <div class="form-group">
+    <%= a.label(:body) %></br>
+    <%= a.text_area(:body, class: 'form-control') %>
+  </div>
+
+  <div id="submit-button">
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </div>
+<% end %>
