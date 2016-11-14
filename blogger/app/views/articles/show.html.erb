@@ -1,4 +1,6 @@
-<h1><%= @article.title %></h1>
+<h1 class="title"><%= @article.title %></h1>
 </br>
 <p><%= @article.body %></p>
+<h3 class="comments-title"><%= puts @article.comments.length %>Comments</h3>
+<%= render partial: 'articles/comment', collection: @article.comments %>
 <%= link_to "Delete Article", article_path(@article), method: :delete, data: {confirm: "Truly?"} %>
