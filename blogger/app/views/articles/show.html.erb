@@ -1,6 +1,7 @@
-<h1 class="title"><%= @article.title %></h1>
-</br>
+<h1 class="title"><%= @article.title %></h1></br>
+<small class="timestamp">Posted <%= @article.created_at %></small>
 <p><%= @article.body %></p>
 <h3 class="comments-title"><%= puts @article.comments.length %>Comments</h3>
 <%= render partial: 'articles/comment', collection: @article.comments %>
+<%= render partial: 'comments/form' %>
 <%= link_to "Delete Article", article_path(@article), method: :delete, data: {confirm: "Truly?"} %>
