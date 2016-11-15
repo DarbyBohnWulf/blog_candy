@@ -16,10 +16,10 @@ class ArticlesController < ApplicationController
   def create
     @article = Article.new(article_params)
     if @article.save
-      flash.notice = "#{params[:title]} was published."
+      flash.notice = "#{@article.title} was published."
       redirect_to article_path(@article)
     else
-      flash.notice = "#{params[:title]} couldn't be saved."
+      flash.notice = "#{@article.title} couldn't be saved."
       render 'new'
     end
   end
@@ -29,6 +29,7 @@ class ArticlesController < ApplicationController
   end
 
   def update
+    @article = Article.find(params[:id])
     if @article.save
       flash.notice = "You updated '#{@article.title}'."
       redirect_to @article
@@ -50,6 +51,6 @@ class ArticlesController < ApplicationController
 
   protected
     def article_params
-      params.require(:article).permit(:title, :body)
+      params.require(:article).permit(:title, :body, :tag_list)
     end
 end
